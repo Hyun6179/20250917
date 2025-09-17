@@ -5,7 +5,7 @@
         public T Data;
         public List<TreeNode<T>> Children { get; set; } = new List<TreeNode<T>>();
     }
-    class Program
+    class _TreeNode
     {
         static TreeNode<string> MakeTree()
         {
@@ -52,10 +52,23 @@
             }
         }
 
+        static int GetHeight(TreeNode<string> node)
+        {
+            int height = 0;
+
+            for(int i = 0; i < node.Children.Count; i++)
+            {
+                int newHeight = GetHeight(node.Children[i]) + 1;
+                if ( newHeight > height ) height = newHeight;
+            }
+
+            return height;
+        }
+
         static void Main(string[] args)
         {
             var root = MakeTree();
-            PrintTree(root);
+            Console.WriteLine( GetHeight(root)); 
         }
     }
 }
